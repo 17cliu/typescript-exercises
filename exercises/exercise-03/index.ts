@@ -48,22 +48,33 @@ const persons: Person[] = [
     { type: 'admin', name: 'Bruce Willis', age: 64, role: 'World saver' }
 ];
 
-function isAdmin(person: Person) {
+// This is a type guard!
+// A type guard is some expression that performs a runtime check
+// that guarantees the type in some scope.
+//
+// `person is Admin` is a type predicate. Here we are saying that the return
+// type is a type predicate.
+function isAdmin(person: Person) : person is Admin {
     return person.type === 'admin';
 }
 
-function isUser(person: Person) {
+function isUser(person: Person) : person is User {
     return person.type === 'user';
 }
 
 function logPerson(person: Person) {
     let additionalInformation: string = '';
+
+    // By using the type guard, we don't have to do `(person as Admin).role`
+    // inside the if-statement.
     if (isAdmin(person)) {
         additionalInformation = person.role;
     }
+
     if (isUser(person)) {
         additionalInformation = person.occupation;
     }
+
     console.log(` - ${chalk.green(person.name)}, ${person.age}, ${additionalInformation}`);
 }
 
