@@ -28,19 +28,20 @@ Run this exercise:
 
 */
 
-interface User {
+interface Person {
     name: string;
     age: number;
+}
+
+interface User extends Person {
     occupation: string;
 }
 
-interface Admin {
-    name: string;
-    age: number;
+interface Admin extends Person {
     role: string;
 }
 
-const persons: User[] /* <- Person[] */ = [
+const persons: (User | Admin)[] = [
     {
         name: 'Max Mustermann',
         age: 25,
@@ -63,7 +64,7 @@ const persons: User[] /* <- Person[] */ = [
     }
 ];
 
-function logPerson(user: User) {
+function logPerson(user: Person) {
     console.log(` - ${chalk.green(user.name)}, ${user.age}`);
 }
 
