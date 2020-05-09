@@ -95,9 +95,10 @@ function logPerson(person: Person) {
     console.log(` - ${chalk.green(person.name)}, ${person.age}, ${additionalInformation}`);
 }
 
-// Changed type of `criteria` from `User` to `Partial<User>`, which returns a
-// new type that has all the properties of User, except they are all optional.
-function filterUsers(persons: Person[], criteria: Partial<User>): User[] {
+// (1) Changed type of `criteria` from `User` to `Partial<User>`, which returns
+//     a new type that has all the properties of User, except they are all optional.
+// (2) Added `Exclude<T, 'type'>` to prevent filtering on "type" property.
+function filterUsers(persons: Person[], criteria: Partial<Exclude<User, 'type'>>): User[] {
     return persons.filter(isUser).filter((user) => {
         let criteriaKeys = Object.keys(criteria) as (keyof User)[];
         return criteriaKeys.every((fieldName) => {
@@ -112,8 +113,9 @@ filterUsers(persons, { age: 23 }).forEach(logPerson);
 console.log(chalk.yellow('Users that are astronauts:'));
 filterUsers(persons, { occupation: 'Astronaut' }).forEach(logPerson);
 
-console.log(chalk.yellow('Users that are of type "user":'));
-filterUsers(persons, { type: 'user' }).forEach(logPerson);
+// TS error at `{ type: 'user' }` b/c we've excluded "type"
+// console.log(chalk.yellow('Users that are of type "user":'));
+// filterUsers(persons, { type: 'user' }).forEach(logPerson);
 
 // In case if you are stuck:
 // https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types
