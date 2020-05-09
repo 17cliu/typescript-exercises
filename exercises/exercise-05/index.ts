@@ -64,6 +64,10 @@ function logPerson(person: Person) {
     );
 }
 
+function getObjectKeys(criteria: Partial<Person>): (keyof Person)[] {
+    return Object.keys(criteria) as (keyof Person)[];
+}
+
 // Function overloads
 //
 // These additional definitions tell TS what to expect the output to be, based
@@ -78,7 +82,7 @@ function filterPersons(persons: Person[], personType: 'admin' | 'user', criteria
     return persons
         .filter((person) => person.type === personType)
         .filter((person) => {
-            let criteriaKeys = Object.keys(criteria) as (keyof Person)[];
+            let criteriaKeys = getObjectKeys(criteria);
             return criteriaKeys.every((fieldName) => {
                 return person[fieldName] === criteria[fieldName];
             });
