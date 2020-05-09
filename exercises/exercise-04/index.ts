@@ -95,7 +95,7 @@ function logPerson(person: Person) {
     console.log(` - ${chalk.green(person.name)}, ${person.age}, ${additionalInformation}`);
 }
 
-function filterUsers(persons: Person[], criteria: User): User[] {
+function filterUsers(persons: Person[], criteria: Partial<User>): User[] {
     return persons.filter(isUser).filter((user) => {
         let criteriaKeys = Object.keys(criteria) as (keyof User)[];
         return criteriaKeys.every((fieldName) => {
@@ -106,13 +106,9 @@ function filterUsers(persons: Person[], criteria: User): User[] {
 
 console.log(chalk.yellow('Users of age 23:'));
 
-filterUsers(
-    persons,
-    {
-        age: 23
-    }
-).forEach(logPerson);
+filterUsers(persons, { age: 23 }).forEach(logPerson);
 
 // In case if you are stuck:
 // https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#predefined-conditional-types
+// https://dev.to/busypeoples/notes-on-typescript-type-level-programming-in-typescript-part-1-i57
