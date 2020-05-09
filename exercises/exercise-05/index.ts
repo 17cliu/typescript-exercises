@@ -64,7 +64,17 @@ function logPerson(person: Person) {
     );
 }
 
-function filterPersons(persons: Person[], personType: string, criteria: unknown): unknown[] {
+// Function overloads
+//
+// These additional definitions tell TS what to expect the output to be, based
+// on the input (e.g. if given admin type/criteria, expect Admins back).
+// The main fn definition should still encompass all possible input/output types.
+//
+// NB. Always list overload declarations from the most specific case to the
+// most general one!
+function filterPersons(persons: Person[], personType: 'admin', criteria: Partial<Admin>): Admin[];
+function filterPersons(persons: Person[], personType: 'user', criteria: Partial<User>): User[];
+function filterPersons(persons: Person[], personType: 'admin' | 'user', criteria: Partial<Person>): Person[] {
     return persons
         .filter((person) => person.type === personType)
         .filter((person) => {
@@ -88,3 +98,4 @@ adminsOfAge23.forEach(logPerson);
 
 // In case if you are stuck:
 // https://www.typescriptlang.org/docs/handbook/functions.html#overloads
+// https://engineering.datorama.com/demystifying-function-overloading-in-typescript-eb9f8ca6b87d
