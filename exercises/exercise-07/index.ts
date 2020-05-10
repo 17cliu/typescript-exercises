@@ -41,7 +41,10 @@ interface Admin {
     role: string;
 }
 
-type PowerUser = unknown;
+// (1) Create new intersection type: User & Admin
+// (2) Remove 'type' property with Omit
+// (3) Intersect with type containing custom 'type' property
+type PowerUser = Omit<User & Admin, 'type'> & { type: 'powerUser' }
 
 type Person = User | Admin | PowerUser;
 
@@ -100,3 +103,5 @@ persons.filter(isPowerUser).forEach(logPerson);
 
 // In case if you are stuck:
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#predefined-conditional-types
+// https://levelup.gitconnected.com/typescript-advanced-types-union-and-intersection-types-9283046d7859
+// https://stackoverflow.com/questions/38855908/naming-of-typescripts-union-and-intersection-types
