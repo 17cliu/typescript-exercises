@@ -88,7 +88,14 @@ const users: User[] = [
     }
 ];
 
-function swap(v1, v2) {
+// Generics!
+//
+// Q: How is this any different from using `any`?
+// A: With `any`, TS can't guess what the output is -- in this case, it would
+// not be able to infer that the type of the output is whatever the type of the
+// input is. Using type variables (here: T1, T2) allows TS to keep track of
+// type info in a generic fn (i.e. one that allows a variety of types).
+function swap<T1, T2>(v1: T1, v2: T2): [T2, T1] {
     return [v2, v1];
 }
 
