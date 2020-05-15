@@ -102,6 +102,6 @@ console.log(chalk.yellow('Power users:'));
 persons.filter(isPowerUser).forEach(logPerson);
 
 // In case if you are stuck:
-// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#predefined-conditional-types
+// https://www.typescriptlang.org/docs/handbook/utility-types.html
 // https://levelup.gitconnected.com/typescript-advanced-types-union-and-intersection-types-9283046d7859
 // https://stackoverflow.com/questions/38855908/naming-of-typescripts-union-and-intersection-types
