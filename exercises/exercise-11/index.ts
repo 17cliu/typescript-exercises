@@ -114,6 +114,12 @@ console.log(` - was ${colorizeIndex(getMinIndex(users, compareUsers))}th to regi
 
 console.log();
 
+console.log(chalk.yellow('Youngest of an empty array:'));
+logUser(getMinElement([], compareUsers));
+console.log(` - was ${colorizeIndex(getMinIndex([], compareUsers))}th to register`);
+
+console.log();
+
 console.log(chalk.yellow('Median user:'));
 logUser(getMedianElement(users, compareUsers));
 console.log(` - was ${colorizeIndex(getMedianIndex(users, compareUsers))}th to register`);
@@ -151,3 +157,8 @@ console.log();
 
 console.log(chalk.yellow('Average admin age:'));
 console.log(` - ${chalk.red(String(getAverageValue(admins, ({age}: Admin) => age)))} years`);
+
+console.log();
+
+console.log(chalk.yellow('Average of an empty array:'));
+console.log(` - ${chalk.red(String(getAverageValue([], ({age}: Admin) => age)))} years`);
