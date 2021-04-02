@@ -41,10 +41,10 @@ interface Admin {
     role: string;
 }
 
-// (1) Create new intersection type: User & Admin
-// (2) Remove 'type' property with Omit
-// (3) Intersect with type containing custom 'type' property
-type PowerUser = Omit<User & Admin, 'type'> & { type: 'powerUser' }
+// Remove 'type' property from User and Admin interfaces, then
+// intersect the resulting types with a new type that contains the
+// custom 'type' property.
+type PowerUser = Omit<User, 'type'> & Omit<Admin, 'type'> & { type: 'powerUser' };
 
 type Person = User | Admin | PowerUser;
 
