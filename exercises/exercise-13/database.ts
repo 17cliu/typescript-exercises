@@ -1,3 +1,5 @@
+import { fs } from 'mz';
+
 interface PropertyFilter {
     $eq?: string | number;
     $gt?: string | number;
@@ -29,7 +31,22 @@ export class Database<T> {
         this.fullTextSearchFieldNames = fullTextSearchFieldNames;
     }
 
+    async open() {
+        const file = await fs.readFile(this.filename);
+        const lines = file.toString().split('\n');
+        const records = lines.reduce((memo: object[], line) => {
+            if (line.startsWith('E')) {
+                const record = JSON.parse(line.slice(1));
+                memo.push(record);
+            }
+            return memo;
+        }, []);
+        return records;
+    }
+
     async find(query: Query): Promise<T[]> {
+        const records = await this.open();
+        console.log(records)
         return [];
     }
 }
